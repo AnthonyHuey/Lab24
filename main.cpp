@@ -1,20 +1,20 @@
-// Anthony Huey - 10/16/2026 - COMSC 210 - Lab 23: Goat Manager 3001
-// Fork the given repository, then follow the 4 tasks, 
-// im not writitng them here, they're on the assignment look there.
+// Anthony Huey - 10/17/2026 - COMSC 210 - Lab 24: Goat Manager 3001
+// Convert the list to a set.
 
 #include <iostream>
 #include <fstream>
 #include <iomanip>
 #include <list>
+#include <set>
 #include "Goat.h"
 using namespace std;
 
 const int SZ_NAMES = 200, SZ_COLORS = 25, MAX_AGE = 20, MIN = 0;
 
-int select_goat(list<Goat> trip);
-void delete_goat(list<Goat> &trip);
-void add_goat(list<Goat> &trip, string [], string []);
-void display_trip(list<Goat> trip);
+int select_goat(set<Goat> trip); // can use .find
+void delete_goat(set<Goat> &trip); // can use .erase
+void add_goat(set<Goat> &trip, string [], string []); // use .insert
+void display_trip(set<Goat> trip); 
 int main_menu();
 
 bool again = 1; // using this for the main menu, and delete loops.
@@ -36,7 +36,7 @@ int main()
     while (fin1 >> colors[i++]);
     fin1.close();
 
-    list<Goat> mylist;
+    set<Goat> mylist;
     int choice;
 
     while (choice != 4)
@@ -54,9 +54,9 @@ int main()
     return 0;
 }
 
-int main_menu() // nvm about putting it in the header, saw the function up top.
-{               // feel like it would be way easier to just loop this function -
-    int choice; // - rather then it just return the user choice, oh well.
+int main_menu() // Menu for interacting with goats
+{               
+    int choice; 
     again = 1;
     while (again != 0)
     {
@@ -77,7 +77,7 @@ int main_menu() // nvm about putting it in the header, saw the function up top.
     return choice;
 }
 
-int select_goat(list<Goat> trip) // display the goats, then ask which one.
+int select_goat(set<Goat> trip) // display the goats, then ask which one.
 {
     display_trip(trip);
     
@@ -88,7 +88,7 @@ int select_goat(list<Goat> trip) // display the goats, then ask which one.
     return choice;
 }
 
-void delete_goat(list<Goat> &trip) // find goat, delete it
+void delete_goat(set<Goat> &trip) // find goat, delete it
 {
     again = 1;
     int choice;
@@ -105,15 +105,15 @@ void delete_goat(list<Goat> &trip) // find goat, delete it
     trip.erase(it);
 }
 
-void add_goat(list<Goat> &trip, string n[], string c[]) // add goat
+void add_goat(set<Goat> &trip, string n[], string c[]) // add goat
 {
     Goat goat = {n[rand()%SZ_NAMES], rand() % (MAX_AGE - MIN+1) + MIN, 
                  c[rand()%SZ_COLORS]};
-    trip.push_back(goat); // that should be 20, although you could just set - 
-    cout << " Adding goat..."; //- MAX_AGE to 21, formula is more fun.
+    trip.insert(goat); 
+    cout << " Adding goat..."; 
 }                        
 
-void display_trip(list<Goat> trip) // display goats
+void display_trip(set<Goat> trip) // display goats
 {
     int i = 0;
     for (Goat g : trip)
