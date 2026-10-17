@@ -1,10 +1,10 @@
 // Anthony Huey - 10/17/2026 - COMSC 210 - Lab 24: Goat Manager 3001
 // Convert the list to a set.
-
+// really only had to change 2 things, the push_back to insert, 
+// and adding the overloaded < so it can sort itself, easy peasy.
 #include <iostream>
 #include <fstream>
 #include <iomanip>
-#include <list>
 #include <set>
 #include "Goat.h"
 using namespace std;
